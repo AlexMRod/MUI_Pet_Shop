@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material';
 import ImageGrid from '../components/ImageGrid';
-import SubmitImageForm from '../components/submitImageForm';
+import SubmitImageForm from '../components/SubmitImageForm';
 import Box from '@mui/material/Box';
+import { useState } from 'react';
 
 export default function CatPage() {
   const catImages = [
@@ -11,22 +12,24 @@ export default function CatPage() {
     'https://plus.unsplash.com/premium_photo-1677545183884-421157b2da02?q=80&w=2944&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://plus.unsplash.com/premium_photo-1677545182067-26ac518ef64f?q=80&w=2756&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   ];
+  const [images, updateImages] = useState(catImages)
 
+  const addImage = (newImageURL) => {
+    updateImages((prevImages) => [...prevImages, newImageURL]); 
+  };
   return (
     <>
       <Box sx={{ marginBottom: '3em' }}>
         <Typography variant="h1" gutterBottom>
-          {' '}
           Featured Cats
         </Typography>
-        <ImageGrid images={catImages} />
+        <ImageGrid images={images} />
       </Box>
       <Box>
         <Typography variant="h3" gutterBottom>
-          {' '}
           Add your cat here
         </Typography>
-        <SubmitImageForm />
+        <SubmitImageForm submitHandler={addImage} />
       </Box>
     </>
   );

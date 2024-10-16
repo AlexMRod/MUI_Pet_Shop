@@ -23,7 +23,7 @@ const cardData = [
     imageURL:
       'https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     title: 'Other Pets',
-    description: 'We also care about other Pets, not just Cats and Dogs',
+    description: 'We also like other pets, not just cats and dogs',
     path:'/otherpets'
   },
   {

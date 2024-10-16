@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { Typography } from '@mui/material';
-import ImageGrid from '../components/ImageGrid';
-import SubmitImageForm from '../components/submitImageForm';
+import ImageGrid from '../components/ImageGrid'
+import SubmitImageForm from '../components/SubmitImageForm';
 import Box from '@mui/material/Box';
 
 export default function PetsPage() {
@@ -11,6 +12,11 @@ export default function PetsPage() {
     'https://images.unsplash.com/photo-1701708844217-3b32c0d8bd03?q=80&w=2831&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   ];
+  const [images, updateImages] = useState(petImages)
+
+  const addImage = (newImageURL) => {
+    updateImages((prevImages) => [...prevImages, newImageURL]); 
+  };
 
   return (
     <>
@@ -19,14 +25,14 @@ export default function PetsPage() {
           {' '}
           Featured Pets
         </Typography>
-        <ImageGrid images={petImages} />
+        <ImageGrid images={images} />
       </Box>
       <Box>
         <Typography variant="h3" gutterBottom>
           {' '}
-          Add your cat here
+          Add your pet here
         </Typography>
-        <SubmitImageForm />
+        <SubmitImageForm submitHandler={addImage} />
       </Box>
     </>
   );
