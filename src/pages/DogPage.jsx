@@ -1,7 +1,10 @@
+/*eslint-disable*/
+
 import { Typography } from '@mui/material';
 import ImageGrid from '../components/ImageGrid';
-import SubmitImageForm from '../components/submitImageForm';
+import SubmitImageForm from '../components/SubmitImageForm';
 import Box from '@mui/material/Box';
+import { useState } from 'react';
 
 export default function DogPage() {
   const dogImages = [
@@ -12,6 +15,12 @@ export default function DogPage() {
     'https://plus.unsplash.com/premium_photo-1666878155781-f86514e5808b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9nfGVufDB8fDB8fHww',
   ];
 
+  const [images, updateImages] = useState(dogImages)
+
+  const addImage = (newImageURL) => {
+    updateImages((prevImages) => [...prevImages, newImageURL]); 
+  };
+
   return (
     <>
       <Box sx={{ marginBottom: '3em' }}>
@@ -19,14 +28,13 @@ export default function DogPage() {
           {' '}
           Featured Dogs
         </Typography>
-        <ImageGrid images={dogImages} />
+        <ImageGrid images={images} />
       </Box>
       <Box>
         <Typography variant="h3" gutterBottom>
-          {' '}
           Add your dog here
         </Typography>
-        <SubmitImageForm />
+        <SubmitImageForm submitHandler={addImage} />
       </Box>
     </>
   );

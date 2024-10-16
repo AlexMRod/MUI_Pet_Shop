@@ -1,14 +1,50 @@
-import TextField from '@mui/material/TextField';
+/*eslint-disable*/
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
-import { FormGroup } from '@mui/material';
+import Box from '@mui/material/Box'
+import * as yup from "yup";
+import { FormContainer, TextFieldElement, useForm } from "react-hook-form-mui"
+import { yupResolver } from '@hookform/resolvers/yup';
 
-export default function SubmitImageForm() {
+const schema = yup
+  .object()
+  .shape({
+    imageURL: yup.string().url().required('a URL is required')
+  })
+  .required();
+
+
+export default function SubmitImageForm( {submitHandler} ) {
+
+  const {
+    handleSubmit,
+    formState: { errors, isValid, isDirty, isSubmitting },
+    reset,
+    control,
+    formState,
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+    defaultValues:{
+      imageURL:''
+    }
+  });
+
+  const dataSubmit = (data) => {submitHandler(data.imageURL);
+  reset()
+};
+
   return (
-   <FormGroup sx={{width: "40rem", margin:"auto"}}>
+  <Box sx={{width:'50em', margin:'auto'}}> 
+    <FormContainer
+        onSuccess={handleSubmit(dataSubmit)} 
+        sx={{ width: '40rem', margin: 'auto' }}
+      >
+
     <InputLabel> Enter the image URL </InputLabel>
-    <TextField id="outlined-basic" sx={{paddingBottom:'0.5em'}}/>
-    <Button variant="contained">Add to Gallery</Button>
-   </FormGroup>
+    <TextFieldElement control={control} name="imageURL" id="outlined-basic" fullWidth sx={{paddingBottom:'0.5em', display:'block'}}/>
+    <Button variant="contained" type="submit" disabled={!isDirty || !isValid }>Add to Gallery</Button>
+   </FormContainer>
+   </Box>
   );
 }
